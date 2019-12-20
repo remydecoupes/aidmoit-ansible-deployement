@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/debian9"
+
+  config.vm.define "aidmoit-geonetwork"
+  config.vm.hostname = "aidmoit-geonetwork"
+  config.vm.network "public_network", bridge:"enp1s0", use_dhcp_assigned_default_route: true
+
+  config.vm.provision "shell", inline: <<-SHELL
+    systemctl stop resolvconf
+    echo "nameserver 10.34.192.61" >> /etc/resolv.conf
+    echo "nameserver 10.34.192.62" >> /etc/resolv.conf
+  SHELL
+
+  config.vm.network :private_network, ip: "10.0.0.9"
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "../../playbook/install-geonetwork-by-git.yml"
+  end
+
+end
