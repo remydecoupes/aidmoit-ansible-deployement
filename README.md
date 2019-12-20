@@ -5,7 +5,9 @@ This project aims to deploy a datalake and its ecosystem using  **[Ansible](http
 Acutally, this project does :
 
 Deploy a full Data Lake using virtual machines running on your computer :
+
 	* A HDFS cluster : 1 namenode and 2 datanodes
+
 	* A metadata system manager : 1 GeoNetwork
 
 ## Prerequisites
